@@ -3,8 +3,8 @@ import {
   Home, 
   Camera, 
   Wifi, 
-  Magnet, 
-  Sparkles
+  Bluetooth, 
+  Radio
 } from 'lucide-react';
 import { soundFx } from '../utils/audio';
 import { triggerHaptic } from '../utils/haptics';
@@ -24,8 +24,8 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
     { id: 'overview', label: 'Overview', icon: Home },
     { id: 'optical', label: 'Lens Cam', icon: Camera, badge: null },
     { id: 'network', label: 'Wi-Fi', icon: Wifi, badge: threatCount > 0 ? threatCount : null },
-    { id: 'emf', label: 'Magnetic', icon: Magnet, badge: null },
-    { id: 'genai', label: 'Photo Check', icon: Sparkles, badge: null },
+    { id: 'ble', label: 'AirTag', icon: Bluetooth, badge: null },
+    { id: 'acoustic', label: 'Audio Bug', icon: Radio, badge: null },
   ];
 
   const handleTabClick = (tabId: string) => {

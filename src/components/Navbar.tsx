@@ -9,7 +9,9 @@ import {
   Volume2, 
   VolumeX, 
   AlertTriangle,
-  Play
+  Play,
+  Bluetooth,
+  Radio
 } from 'lucide-react';
 import { soundFx } from '../utils/audio';
 
@@ -39,8 +41,10 @@ export const Navbar: React.FC<NavbarProps> = ({
     { id: 'overview', label: 'Overview', icon: ShieldCheck },
     { id: 'optical', label: 'Camera Scan', icon: Camera },
     { id: 'network', label: 'Wi-Fi Radar', icon: Wifi },
+    { id: 'ble', label: 'AirTag / BLE', icon: Bluetooth },
+    { id: 'acoustic', label: 'Audio Bug Sweeper', icon: Radio },
     { id: 'emf', label: 'Magnetic EMF', icon: Magnet },
-    { id: 'genai', label: 'AI Inspector', icon: Sparkles },
+    { id: 'genai', label: 'Photo Check', icon: Sparkles },
     { id: 'heatmap', label: 'Hotel Ratings', icon: Building2 },
   ];
 

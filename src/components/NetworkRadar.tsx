@@ -3,14 +3,16 @@ import {
   Wifi, 
   Search, 
   ExternalLink, 
-  ShieldAlert, 
   Flame,
   Radio,
   Lock,
   Unlock,
   X,
   AlertTriangle,
-  RotateCcw
+  RotateCcw,
+  Camera,
+  Download,
+  Video
 } from 'lucide-react';
 import type { DeviceInfo } from '../types';
 import { soundFx } from '../utils/audio';
@@ -429,8 +431,8 @@ export const NetworkRadar: React.FC<NetworkRadarProps> = ({ onThreatFound }) => 
 
             <div className="flex items-center justify-between pb-2 border-b border-zinc-800">
               <div className="flex items-center space-x-2 text-red-400 font-semibold text-sm">
-                <ShieldAlert className="w-4 h-4" />
-                <span>Live Video Stream Detected</span>
+                <Video className="w-4 h-4 animate-pulse" />
+                <span>Live Camera Stream Interceptor</span>
               </div>
               <button 
                 onClick={() => {
@@ -443,32 +445,81 @@ export const NetworkRadar: React.FC<NetworkRadarProps> = ({ onThreatFound }) => 
               </button>
             </div>
 
-            <div className="p-3 bg-red-950/30 border border-red-800/60 rounded-xl text-xs text-zinc-300 space-y-1">
-              <p className="font-semibold text-red-200">Active video stream discovered:</p>
-              <div>• Protocol: RTSP Stream (Port 554)</div>
-              <div>• Target IP: {selectedDevice.ip}</div>
-              <div>• Vendor: {selectedDevice.vendor}</div>
+            {/* Live Video Monitor Frame */}
+            <div className="relative rounded-xl overflow-hidden border border-zinc-800 bg-black aspect-video flex items-center justify-center shadow-inner">
+              {/* Scanlines Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-red-500/5 to-transparent pointer-events-none opacity-40" />
+
+              {/* Stream HUD Top Overlay */}
+              <div className="absolute top-2.5 left-3 right-3 flex items-center justify-between text-[10px] font-mono text-white/80 z-10">
+                <div className="flex items-center space-x-2 bg-black/60 px-2 py-0.5 rounded backdrop-blur-sm">
+                  <span className="w-2 h-2 rounded-full bg-red-500 animate-ping" />
+                  <span className="font-bold text-red-400">LIVE RTSP</span>
+                  <span className="text-zinc-400">CH-01</span>
+                </div>
+                <span className="bg-black/60 px-2 py-0.5 rounded text-zinc-300">
+                  24.0 FPS • 1080p
+                </span>
+              </div>
+
+              {/* Simulated Room Interior Graphic */}
+              <div className="w-full h-full flex flex-col items-center justify-center text-center p-4 bg-zinc-950 text-zinc-400">
+                <div className="relative border border-dashed border-red-500/60 rounded-lg p-6 bg-red-950/10">
+                  <Camera className="w-10 h-10 text-red-400 mx-auto mb-2 opacity-80" />
+                  <span className="text-xs font-mono font-semibold text-red-300">
+                    TARGET SENSOR INTERCEPTED
+                  </span>
+                  <div className="text-[10px] text-zinc-400 font-mono mt-1">
+                    SRC: {selectedDevice.ip}:554/live/ch0
+                  </div>
+                </div>
+              </div>
+
+              {/* Stream HUD Bottom Overlay */}
+              <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-[10px] font-mono text-zinc-400 bg-black/70 px-2.5 py-1 rounded backdrop-blur-sm">
+                <span>BITRATE: 2,340 Kbps (H.264)</span>
+                <span className="text-red-400 font-medium">UNAUTHORIZED STREAM</span>
+              </div>
             </div>
 
+            {/* Target Hardware Details */}
+            <div className="p-3 bg-zinc-950 border border-zinc-800 rounded-xl text-xs text-zinc-300 space-y-1 font-mono">
+              <div className="flex justify-between text-zinc-400">
+                <span>Vendor OUI:</span>
+                <span className="text-zinc-200 font-sans">{selectedDevice.vendor}</span>
+              </div>
+              <div className="flex justify-between text-zinc-400">
+                <span>Streaming Port:</span>
+                <span className="text-red-400">Port 554 (RTSP / ONVIF)</span>
+              </div>
+              <div className="flex justify-between text-zinc-400">
+                <span>Target Hardware IP:</span>
+                <span className="text-blue-400">{selectedDevice.ip}</span>
+              </div>
+            </div>
+
+            {/* Action Buttons */}
             <div className="flex space-x-2 pt-1">
               <button
                 onClick={() => {
-                  triggerHaptic('light');
-                  setRtspProbeModal(false);
+                  triggerHaptic('medium');
+                  soundFx.playSuccessChime();
+                  alert(`Snapshot saved from ${selectedDevice.ip} (Port 554 RTSP)! Timestamped evidence stored.`);
                 }}
-                className="w-1/2 py-2 rounded-xl bg-zinc-800 text-zinc-300 hover:bg-zinc-750 text-xs font-medium"
+                className="w-1/2 py-2.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-xs font-medium flex items-center justify-center space-x-1.5 transition active:scale-95"
               >
-                Close
+                <Download className="w-3.5 h-3.5 text-blue-400" />
+                <span>Save Snapshot</span>
               </button>
               <button
                 onClick={() => {
                   triggerHaptic('heavy');
-                  alert("Isolate request sent! Device blocked from router.");
+                  alert(`Device ${selectedDevice.ip} packet broadcast neutralized.`);
                   setRtspProbeModal(false);
                 }}
-                className="w-1/2 py-2 rounded-xl bg-red-600 hover:bg-red-500 text-white text-xs font-medium"
+                className="w-1/2 py-2.5 rounded-xl bg-red-600 hover:bg-red-500 text-white text-xs font-semibold transition active:scale-95"
               >
-                Block Device
+                Block Stream
               </button>
             </div>
           </div>

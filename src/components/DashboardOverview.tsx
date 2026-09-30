@@ -11,7 +11,8 @@ import {
   Radio,
   Lock,
   Moon,
-  AlertTriangle
+  AlertTriangle,
+  Bluetooth
 } from 'lucide-react';
 import { soundFx } from '../utils/audio';
 import { triggerHaptic } from '../utils/haptics';
@@ -37,15 +38,31 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
       title: 'Optical Lens Scanner',
       desc: 'Use flashlight reflections to spot hidden pinhole camera lenses.',
       icon: Camera,
-      tag: 'Offline',
+      tag: 'Camera',
       accent: 'text-zinc-100 bg-zinc-800'
     },
     {
       id: 'network',
-      title: 'Wi-Fi Device Radar',
-      desc: 'Discover hidden wireless cameras and covert video streaming links.',
+      title: 'Wi-Fi & Stream Radar',
+      desc: 'Discover wireless cameras and intercept unauthorized video feeds.',
       icon: Wifi,
-      tag: 'Network',
+      tag: 'Wi-Fi',
+      accent: 'text-zinc-100 bg-zinc-800'
+    },
+    {
+      id: 'ble',
+      title: 'AirTag & BLE Hunter',
+      desc: 'Find hidden Apple AirTags, SmartTags, and covert Bluetooth transmitters.',
+      icon: Bluetooth,
+      tag: 'Bluetooth',
+      accent: 'text-zinc-100 bg-zinc-800'
+    },
+    {
+      id: 'acoustic',
+      title: 'Acoustic Bug Sweeper',
+      desc: 'Detect 15kHz+ ultrasonic whine leaked by hidden power adapters & mics.',
+      icon: Radio,
+      tag: 'Audio',
       accent: 'text-zinc-100 bg-zinc-800'
     },
     {
@@ -53,7 +70,7 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
       title: 'Magnetic Field Meter',
       desc: 'Locate unshielded circuits inside clocks, smoke alarms, and sockets.',
       icon: Magnet,
-      tag: 'Sensor',
+      tag: 'Magnetic',
       accent: 'text-zinc-100 bg-zinc-800'
     },
     {
@@ -224,10 +241,10 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
           <h2 className="text-xs font-semibold text-zinc-400 uppercase tracking-wider">
             Detection Tools
           </h2>
-          <span className="text-[11px] text-zinc-500">4 Hardware Methods</span>
+          <span className="text-[11px] text-zinc-500">6 Hardware Vectors</span>
         </div>
 
-        <div className={isWide ? "grid grid-cols-4 gap-3" : "grid grid-cols-2 gap-2"}>
+        <div className={isWide ? "grid grid-cols-3 gap-3" : "grid grid-cols-2 gap-2"}>
           {tools.map((tool) => {
             const Icon = tool.icon;
             return (

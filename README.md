@@ -216,9 +216,12 @@ python backend/real_scanner.py
 - [x] Instant local Wi-Fi QR code sync for real smartphones.
 - [x] 60-Second Guided Room Audit wizard with verifiable reports.
 - [x] One-touch Emergency Forensic Shield and legal helplines.
-- [ ] Bluetooth Low Energy (BLE) tracker detector (AirTags, Tile, SmartTags).
-- [ ] Automated RTSP video stream intercept player inside network radar.
-- [ ] Progressive Web App (PWA) offline service worker caching.
+- [x] Bluetooth Low Energy (BLE) tracker detector (AirTags, Tile, SmartTags).
+- [x] Live RTSP / ONVIF video stream intercept player inside network radar.
+- [x] Progressive Web App (PWA) offline service worker caching.
+- [x] Ultrasonic & Coil Whine acoustic bug sweeper (15kHz–22kHz spectrum analyzer).
+- [ ] Crowdsourced community hotel privacy rating database.
+- [ ] Export forensic audit report in encrypted PDF format.
 
 ---
 

@@ -12,6 +12,8 @@ import { GenAIInspector } from './components/GenAIInspector';
 import { HotelHeatmap } from './components/HotelHeatmap';
 import { GuidedAuditModal } from './components/GuidedAuditModal';
 import { EmergencyShieldModal } from './components/EmergencyShieldModal';
+import { BleHunter } from './components/BleHunter';
+import { AcousticBugDetector } from './components/AcousticBugDetector';
 
 const AppContent: React.FC = () => {
   const { viewMode } = useContext(ViewModeContext);
@@ -93,6 +95,14 @@ const AppContent: React.FC = () => {
 
         {activeTab === 'network' && (
           <NetworkRadar onThreatFound={handleThreatFound} />
+        )}
+
+        {activeTab === 'ble' && (
+          <BleHunter />
+        )}
+
+        {activeTab === 'acoustic' && (
+          <AcousticBugDetector />
         )}
 
         {activeTab === 'emf' && (
