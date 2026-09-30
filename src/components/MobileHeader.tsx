@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { 
-  ShieldCheck, 
   Volume2, 
   VolumeX, 
   AlertTriangle,
@@ -39,8 +38,8 @@ export const MobileHeader: React.FC<MobileHeaderProps> = ({
     <header className="sticky top-0 z-30 bg-[#0e0f12]/95 backdrop-blur-md border-b border-zinc-800/80 px-4 py-2.5 flex items-center justify-between">
       {/* Left: App Identity & Room Status */}
       <div className="flex items-center space-x-2.5">
-        <div className="w-7 h-7 rounded-lg bg-zinc-850 border border-zinc-700/60 flex items-center justify-center text-white shadow-sm shrink-0">
-          <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+        <div className="w-7 h-7 rounded-lg bg-zinc-900 border border-cyan-500/30 flex items-center justify-center text-white shadow-sm shrink-0 overflow-hidden">
+          <img src="/favicon.png" alt="SpyZero" className="w-full h-full object-cover" />
         </div>
         <div>
           <div className="flex items-center space-x-1.5">

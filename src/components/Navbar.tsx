@@ -58,8 +58,8 @@ export const Navbar: React.FC<NavbarProps> = ({
             className="flex items-center space-x-2.5 cursor-pointer" 
             onClick={() => setActiveTab('overview')}
           >
-            <div className="w-8 h-8 rounded-lg bg-zinc-900 border border-zinc-700/60 flex items-center justify-center text-white shadow-sm">
-              <ShieldCheck className="w-4 h-4 text-emerald-400" />
+            <div className="w-8 h-8 rounded-lg bg-zinc-900 border border-cyan-500/30 flex items-center justify-center text-white shadow-sm overflow-hidden">
+              <img src="/favicon.png" alt="SpyZero" className="w-full h-full object-cover" />
             </div>
             <div>
               <div className="flex items-center space-x-2">
