@@ -62,18 +62,35 @@ Get SpyZero running on your phone in under 30 seconds. Zero account creation. Ze
 
 ---
 
-### 🍏 Apple iOS Installation Guide
+### 🍏 Apple iOS Installation Guide (Settings ➔ VPN & Device Management)
 
-* **Option A: Instant PWA "Add to Home Screen" (100% Free & Fast)**
-  1. Open your SpyZero web URL in **Safari** on your iPhone.
-  2. Tap the **Share icon** *(Square with arrow pointing up ⬆️)* at the bottom.
-  3. Scroll down and tap **"Add to Home Screen"** ➔ Tap **Add**.
-  4. The **SpyZero** native app icon appears on your home screen with full-screen sensor access!
-* **Option B: Native Capacitor iOS Build (Mac + Xcode)**
+Apple restricts installing raw `.apk` packages, but you can install SpyZero directly via iOS Device Management:
+
+* **Method 1: iOS Device Management Profile (`.mobileconfig`) — 1-Tap Direct Install**
+  1. Open Chrome or Safari on your iPhone and tap:
+     <div align="left" style="margin: 8px 0;">
+       <a href="https://tinyurl.com/26rjvrfe">
+         <img src="https://img.shields.io/badge/Download-SpyZero.mobileconfig-000000?style=for-the-badge&logo=apple&logoColor=white" height="34" alt="Download iOS Profile" />
+       </a>
+     </div>
+     Direct Link: **[`https://tinyurl.com/26rjvrfe`](https://tinyurl.com/26rjvrfe)** *(or repo file: [`SpyZero.mobileconfig`](./SpyZero.mobileconfig))*.
+  2. Tap **Allow** when prompted: *"This website is trying to download a configuration profile."*
+  3. Open iPhone **Settings ➔ General ➔ VPN & Device Management**.
+  4. Under **Downloaded Profile**, tap **SpyZero iOS Profile ➔ Install** *(Enter device passcode)*.
+  5. **SpyZero** icon installs directly on your iOS Home Screen with full native sensor permissions!
+
+* **Method 2: Native IPA Sideloading (Scarlet / AltStore / Sideloadly / Enterprise)**
+  1. Download the signed `SpyZero.ipa` via Chrome or your sideloading tool.
+  2. Once installed, tap the icon. If iOS shows *"Untrusted Enterprise Developer"*:
+  3. Go to **Settings ➔ General ➔ VPN & Device Management**.
+  4. Under **Developer App / Enterprise App**, tap the developer name and tap **Trust "[Developer Name]"**.
+  5. The native app opens instantly with full iOS camera, BLE, and sensor access!
+
+* **Method 3: Native Xcode Workspace (Mac)**
   ```bash
   npx cap add ios && npx cap sync ios && npx cap open ios
   ```
-  Connect your iPhone via USB, select your free Personal Apple ID, and hit **Run (▶️)**.
+  Connect iPhone via USB, select your free Personal Apple ID signing cert, and click **Run (▶️)**.
 
 </td>
 <td width="35%" align="center" valign="middle" style="background-color: #0d1117; border-radius: 16px; padding: 16px;">
