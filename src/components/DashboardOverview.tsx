@@ -21,13 +21,23 @@ import { ViewModeContext } from './DeviceFrame';
 interface DashboardOverviewProps {
   setActiveTab: (tab: string) => void;
   onOpenAuditWizard: () => void;
+  onOpenRoomSweep: () => void;
   threatCount: number;
+  demoMode: boolean;
+  onToggleDemoMode: () => void;
+  onInjectThreat: (threatName: string) => void;
+  onClearThreats: () => void;
 }
 
 export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
   setActiveTab,
   onOpenAuditWizard,
-  threatCount
+  onOpenRoomSweep,
+  threatCount,
+  demoMode,
+  onToggleDemoMode,
+  onInjectThreat,
+  onClearThreats
 }) => {
   const { viewMode } = useContext(ViewModeContext);
   const isWide = viewMode === 'wide';
@@ -150,16 +160,94 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
         </div>
 
         {/* Quick Action Button */}
-        <div className={`shrink-0 ${isWide ? "" : "pt-1"}`}>
+        <div className={`shrink-0 flex flex-col sm:flex-row gap-2 ${isWide ? "" : "pt-1"}`}>
           <button
-            onClick={handleStartAudit}
-            className={`py-2.5 px-4 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-medium text-xs flex items-center justify-center space-x-2 shadow-sm transition active:scale-95 ${
+            onClick={() => {
+              triggerHaptic('medium');
+              soundFx.playRadarPing();
+              onOpenRoomSweep();
+            }}
+            className={`py-2.5 px-4 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-medium text-xs flex items-center justify-center space-x-2 shadow-lg shadow-cyan-950/40 transition active:scale-95 cursor-pointer ${
               isWide ? "w-auto" : "w-full"
             }`}
           >
             <Play className="w-3.5 h-3.5 fill-current" />
-            <span>Run 60s Room Sweep</span>
+            <span>Start Full Room Sweep</span>
           </button>
+
+          <button
+            onClick={handleStartAudit}
+            className="py-2.5 px-3 rounded-xl bg-zinc-800 hover:bg-zinc-700 border border-zinc-700/60 text-zinc-300 text-xs font-medium flex items-center justify-center space-x-1.5 transition active:scale-95 cursor-pointer"
+            title="Open Step-by-Step Room Inspection Wizard"
+          >
+            <span>Manual Checklist</span>
+          </button>
+        </div>
+      </div>
+
+      {/* Demo Mode / Test Lab Bar */}
+      <div className="bg-zinc-900/90 border border-zinc-800 rounded-2xl p-3.5 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div className="flex items-center space-x-2.5 w-full sm:w-auto">
+          <div className={`w-7 h-7 rounded-lg flex items-center justify-center text-xs font-mono font-bold ${
+            demoMode ? 'bg-amber-500/20 text-amber-400 border border-amber-500/40' : 'bg-zinc-800 text-zinc-400'
+          }`}>
+            LAB
+          </div>
+          <div>
+            <div className="flex items-center space-x-2">
+              <span className="text-xs font-semibold text-white">Threat Simulator & Demo Mode</span>
+              <span className={`text-[9px] font-mono px-1.5 py-0.2 rounded ${
+                demoMode ? 'bg-amber-950 text-amber-300 border border-amber-800' : 'bg-zinc-800 text-zinc-400'
+              }`}>
+                {demoMode ? 'ENABLED' : 'OFFLINE'}
+              </span>
+            </div>
+            <p className="text-[10px] text-zinc-400">Inject simulated spy devices to test sirens, haptics & lockdown.</p>
+          </div>
+        </div>
+
+        <div className="flex flex-wrap items-center gap-1.5 w-full sm:w-auto justify-end">
+          <button
+            onClick={() => {
+              triggerHaptic('light');
+              onToggleDemoMode();
+            }}
+            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition cursor-pointer ${
+              demoMode 
+                ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40 hover:bg-amber-500/30' 
+                : 'bg-zinc-800 text-zinc-300 hover:bg-zinc-700'
+            }`}
+          >
+            {demoMode ? 'Disable Lab' : 'Enable Demo Lab'}
+          </button>
+
+          {demoMode && (
+            <>
+              <button
+                onClick={() => onInjectThreat('Covert Wi-Fi Pinhole Cam (IP: 192.168.1.104)')}
+                className="px-2.5 py-1.5 rounded-lg bg-red-950/60 text-red-300 border border-red-800/80 hover:bg-red-900/60 text-[11px] font-mono transition cursor-pointer"
+                title="Inject Wi-Fi Camera"
+              >
+                + Wi-Fi Cam
+              </button>
+              <button
+                onClick={() => onInjectThreat('Unknown AirTag #4829 (Following You)')}
+                className="px-2.5 py-1.5 rounded-lg bg-purple-950/60 text-purple-300 border border-purple-800/80 hover:bg-purple-900/60 text-[11px] font-mono transition cursor-pointer"
+                title="Inject Moving AirTag"
+              >
+                + AirTag
+              </button>
+              {threatCount > 0 && (
+                <button
+                  onClick={onClearThreats}
+                  className="px-2.5 py-1.5 rounded-lg bg-zinc-800 text-zinc-300 hover:bg-zinc-700 text-[11px] font-mono transition cursor-pointer"
+                  title="Clear Threats"
+                >
+                  Clear
+                </button>
+              )}
+            </>
+          )}
         </div>
       </div>
 

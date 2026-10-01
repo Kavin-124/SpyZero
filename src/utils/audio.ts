@@ -124,6 +124,11 @@ class SoundSynthesizer {
     }
   }
 
+  // Alias for threat alarm siren
+  playAlarmSiren() {
+    this.playThreatAlert();
+  }
+
   // Audit cleared chime
   playSuccessChime() {
     if (this.isMuted) return;

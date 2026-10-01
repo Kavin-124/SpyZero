@@ -1,7 +1,7 @@
 {
-  "name": "SpyZero Hardware Privacy Scanner",
+  "name": "SpyZero",
   "short_name": "SpyZero",
-  "description": "Multi-Vector Hidden Camera & Privacy Detector Platform",
+  "description": "SpyZero — Multi-Vector Hidden Camera & Hardware Privacy Platform",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#09090b",
@@ -9,15 +9,15 @@
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "/favicon.svg",
+      "src": "/favicon.png",
       "sizes": "192x192",
-      "type": "image/svg+xml",
+      "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/favicon.svg",
+      "src": "/favicon.png",
       "sizes": "512x512",
-      "type": "image/svg+xml",
+      "type": "image/png",
       "purpose": "any maskable"
     }
   ]

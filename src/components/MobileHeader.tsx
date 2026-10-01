@@ -13,13 +13,17 @@ interface MobileHeaderProps {
   onOpenEmergencyModal: () => void;
   onToggleTorch?: () => void;
   torchActive?: boolean;
+  demoMode?: boolean;
+  onToggleDemoMode?: () => void;
 }
 
 export const MobileHeader: React.FC<MobileHeaderProps> = ({
   threatCount,
   onOpenEmergencyModal,
   onToggleTorch,
-  torchActive = false
+  torchActive = false,
+  demoMode = false,
+  onToggleDemoMode
 }) => {
   const [muted, setMuted] = useState(false);
 
@@ -35,7 +39,10 @@ export const MobileHeader: React.FC<MobileHeaderProps> = ({
   };
 
   return (
-    <header className="sticky top-0 z-30 bg-[#0e0f12]/95 backdrop-blur-md border-b border-zinc-800/80 px-4 py-2.5 flex items-center justify-between">
+    <header 
+      className="sticky top-0 z-30 bg-[#0e0f12]/95 backdrop-blur-md border-b border-zinc-800/80 px-4 py-2.5 flex items-center justify-between"
+      style={{ paddingTop: 'max(0.625rem, env(safe-area-inset-top))' }}
+    >
       {/* Left: App Identity & Room Status */}
       <div className="flex items-center space-x-2.5">
         <div className="w-7 h-7 rounded-lg bg-zinc-900 border border-cyan-500/30 flex items-center justify-center text-white shadow-sm shrink-0 overflow-hidden">
@@ -58,6 +65,24 @@ export const MobileHeader: React.FC<MobileHeaderProps> = ({
 
       {/* Right: Quick Mobile Actions */}
       <div className="flex items-center space-x-1.5">
+        {/* Demo Mode Toggle */}
+        {onToggleDemoMode && (
+          <button
+            onClick={() => {
+              triggerHaptic('light');
+              onToggleDemoMode();
+            }}
+            className={`px-1.5 py-1 rounded-lg border text-[10px] font-mono font-semibold transition cursor-pointer ${
+              demoMode
+                ? 'bg-amber-500/20 text-amber-300 border-amber-500/60 shadow-sm shadow-amber-500/20'
+                : 'bg-zinc-850 text-zinc-500 border-zinc-800 hover:text-zinc-300'
+            }`}
+            title="Toggle Demo Lab / Threat Simulator"
+          >
+            DEMO
+          </button>
+        )}
+
         {/* Flashlight toggle */}
         {onToggleTorch && (
           <button

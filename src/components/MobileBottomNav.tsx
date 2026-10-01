@@ -37,7 +37,10 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
   };
 
   return (
-    <nav className="shrink-0 w-full z-40 bg-[#0e0f12]/95 backdrop-blur-lg border-t border-zinc-800/80 pb-safe">
+    <nav 
+      className="shrink-0 w-full z-40 bg-[#0e0f12]/95 backdrop-blur-lg border-t border-zinc-800/80 pb-safe"
+      style={{ paddingBottom: 'max(0.375rem, env(safe-area-inset-bottom))' }}
+    >
       <div className="w-full px-2 py-1.5 flex items-center justify-around">
         {tabs.map((tab) => {
           const Icon = tab.icon;

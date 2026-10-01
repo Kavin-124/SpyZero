@@ -1,5 +1,6 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect, useRef } from 'react';
 import { Flashlight } from 'lucide-react';
+import { App as CapApp } from '@capacitor/app';
 import { DeviceFrame, ViewModeContext } from './components/DeviceFrame';
 import { MobileHeader } from './components/MobileHeader';
 import { MobileBottomNav } from './components/MobileBottomNav';
@@ -12,8 +13,11 @@ import { GenAIInspector } from './components/GenAIInspector';
 import { HotelHeatmap } from './components/HotelHeatmap';
 import { GuidedAuditModal } from './components/GuidedAuditModal';
 import { EmergencyShieldModal } from './components/EmergencyShieldModal';
+import { FullRoomSweepModal } from './components/FullRoomSweepModal';
 import { BleHunter } from './components/BleHunter';
 import { AcousticBugDetector } from './components/AcousticBugDetector';
+import { triggerHaptic } from './utils/haptics';
+import { soundFx } from './utils/audio';
 
 const AppContent: React.FC = () => {
   const { viewMode } = useContext(ViewModeContext);
@@ -22,15 +26,81 @@ const AppContent: React.FC = () => {
   const [lastDetectedThreat, setLastDetectedThreat] = useState<string>('');
   const [isAuditWizardOpen, setIsAuditWizardOpen] = useState<boolean>(false);
   const [isEmergencyModalOpen, setIsEmergencyModalOpen] = useState<boolean>(false);
+  const [isRoomSweepOpen, setIsRoomSweepOpen] = useState<boolean>(false);
+  const [demoMode, setDemoMode] = useState<boolean>(false);
   const [torchActive, setTorchActive] = useState<boolean>(false);
+  const [backToastVisible, setBackToastVisible] = useState<boolean>(false);
+  const lastBackPressRef = useRef<number>(0);
+
+  // Android Native Hardware Back Button Handler
+  useEffect(() => {
+    let removeListener: (() => void) | null = null;
+
+    const setupBackButton = async () => {
+      try {
+        const listener = await CapApp.addListener('backButton', () => {
+          if (isRoomSweepOpen) {
+            setIsRoomSweepOpen(false);
+          } else if (isEmergencyModalOpen) {
+            setIsEmergencyModalOpen(false);
+          } else if (isAuditWizardOpen) {
+            setIsAuditWizardOpen(false);
+          } else if (torchActive) {
+            setTorchActive(false);
+          } else if (activeTab !== 'overview') {
+            setActiveTab('overview');
+            triggerHaptic('light');
+          } else {
+            const now = Date.now();
+            if (now - lastBackPressRef.current < 2000) {
+              CapApp.exitApp();
+            } else {
+              lastBackPressRef.current = now;
+              setBackToastVisible(true);
+              triggerHaptic('click');
+              setTimeout(() => setBackToastVisible(false), 2000);
+            }
+          }
+        });
+        removeListener = () => listener.remove();
+      } catch {
+        // Fallback for non-Capacitor web preview
+      }
+    };
+
+    setupBackButton();
+
+    return () => {
+      if (removeListener) removeListener();
+    };
+  }, [isRoomSweepOpen, isEmergencyModalOpen, isAuditWizardOpen, torchActive, activeTab]);
 
   const handleThreatFound = (threat: string) => {
     setThreatCount((prev) => prev + 1);
     setLastDetectedThreat(threat);
+    soundFx.playAlarmSiren();
+    triggerHaptic('warning');
   };
 
   const handleToggleTorch = () => {
     setTorchActive((prev) => !prev);
+  };
+
+  const handleToggleDemoMode = () => {
+    setDemoMode((prev) => !prev);
+  };
+
+  const handleInjectThreat = (threatName: string) => {
+    setThreatCount((prev) => prev + 1);
+    setLastDetectedThreat(threatName);
+    soundFx.playAlarmSiren();
+    triggerHaptic('warning');
+  };
+
+  const handleClearThreats = () => {
+    setThreatCount(0);
+    setLastDetectedThreat('');
+    triggerHaptic('click');
   };
 
   const isWide = viewMode === 'wide';
@@ -53,6 +123,8 @@ const AppContent: React.FC = () => {
             onOpenEmergencyModal={() => setIsEmergencyModalOpen(true)}
             onToggleTorch={handleToggleTorch}
             torchActive={torchActive}
+            demoMode={demoMode}
+            onToggleDemoMode={handleToggleDemoMode}
           />
         </div>
       )}
@@ -85,7 +157,12 @@ const AppContent: React.FC = () => {
           <DashboardOverview
             setActiveTab={setActiveTab}
             onOpenAuditWizard={() => setIsAuditWizardOpen(true)}
+            onOpenRoomSweep={() => setIsRoomSweepOpen(true)}
             threatCount={threatCount}
+            demoMode={demoMode}
+            onToggleDemoMode={handleToggleDemoMode}
+            onInjectThreat={handleInjectThreat}
+            onClearThreats={handleClearThreats}
           />
         )}
 
@@ -129,7 +206,22 @@ const AppContent: React.FC = () => {
         </div>
       )}
 
+      {/* Android Hardware Back Button Exit Toast */}
+      {backToastVisible && (
+        <div className="fixed bottom-20 left-1/2 -translate-x-1/2 z-50 bg-zinc-900/95 border border-cyan-500/50 text-white text-xs px-4 py-2 rounded-full shadow-2xl backdrop-blur-md font-mono flex items-center space-x-2 animate-bounce">
+          <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+          <span>Press back again to exit SpyZero</span>
+        </div>
+      )}
+
       {/* Modals */}
+      <FullRoomSweepModal
+        isOpen={isRoomSweepOpen}
+        onClose={() => setIsRoomSweepOpen(false)}
+        onThreatDetected={handleThreatFound}
+        demoMode={demoMode}
+      />
+
       <GuidedAuditModal
         isOpen={isAuditWizardOpen}
         onClose={() => setIsAuditWizardOpen(false)}
