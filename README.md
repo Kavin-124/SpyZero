@@ -1,23 +1,26 @@
 <div align="center">
 
-# 🛡️ SpyZero
-### Multi-Vector Hardware Privacy & Counter-Surveillance Platform
+<img src="./docs/assets/spyzero-logo.png" alt="SpyZero Cyber Shield Logo" width="160" style="border-radius: 50%; filter: drop-shadow(0 0 25px rgba(0, 229, 255, 0.45)); margin-bottom: 12px;" />
 
-[![React](https://img.shields.io/badge/React-19.x-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
+# 🛡️ SpyZero
+### Multi-Vector Counter-Surveillance & Hardware Privacy Platform
+
+[![Android APK Download](https://img.shields.io/badge/Download-SpyZero.apk-00C853?style=for-the-badge&logo=android&logoColor=white)](https://tinyurl.com/29nqw9mz)
+[![iOS Ready](https://img.shields.io/badge/iOS-PWA_&_Capacitor-000000?style=for-the-badge&logo=apple&logoColor=white)](#-apple-ios-installation-guide)
+[![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
+[![Capacitor](https://img.shields.io/badge/Capacitor-Android_%26_iOS-119EFF?style=for-the-badge&logo=capacitor&logoColor=white)](https://capacitorjs.com/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![TailwindCSS](https://img.shields.io/badge/TailwindCSS-v4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
-[![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
-[![Vite](https://img.shields.io/badge/Vite-8.x-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
+[![Privacy: 100% Offline](https://img.shields.io/badge/Privacy-100%25_Offline_Ready-success?style=for-the-badge)](#-security--privacy-architecture)
 [![License: MIT](https://img.shields.io/badge/License-MIT-emerald?style=for-the-badge)](LICENSE)
-[![Zero-Cloud Privacy](https://img.shields.io/badge/Privacy-100%25_Offline_Ready-success?style=for-the-badge)](#-security--privacy-architecture)
 
 <br/>
 
-> **Uncompromising counter-surveillance suite designed to detect pinhole spy cameras, hidden audio bugs, and unauthorized streaming nodes in hotels, rental rooms, Airbnbs, and trial rooms.**
+> **An advanced, privacy-first counter-surveillance mobile suite designed to detect covert pinhole spy cameras, hidden microphones, Bluetooth stalker tags, and unauthorized video streaming hardware in hotel rooms, Airbnbs, trial rooms, and confidential environments.**
 
 <br/>
 
-[✨ Key Capabilities](#-key-capabilities) • [🔬 Detection Architecture](#-6-vector-detection-architecture) • [📱 Mobile QR Sync](#-instant-mobile-qr-sync) • [🚀 Quickstart](#-quickstart-guide) • [🛡️ Emergency Legal Shield](#-emergency-protocol--legal-shield) • [🗺️ Roadmap](#-roadmap)
+[📥 Mobile Installation](#-mobile-installation--download) • [⚡ Core Detection Capabilities](#-core-detection-capabilities) • [🔬 Architecture](#-multi-vector-detection-architecture) • [📱 UI Previews](#-mobile-interface-preview) • [🚨 Emergency Protocol](#-emergency-protocol--evidence-chain) • [🛠️ Developer Quickstart](#-developer-quickstart)
 
 ---
 
@@ -25,214 +28,174 @@
 
 <br/>
 
-## 🎯 The Problem SpyZero Solves
+## 📥 Mobile Installation & Download
 
-Hidden surveillance devices have become dangerously miniaturized:
-- **Pinhole lenses** as small as **1–2 mm** embedded in smoke detectors, digital clocks, wall sockets, and tissue boxes.
-- **Covert Wi-Fi streaming nodes** streaming unauthorized RTSP/MJPEG video directly to private cloud servers.
-- **Infrared night vision arrays** that illuminate private rooms in invisible 850nm / 940nm spectra.
+SpyZero is ready for direct installation on both **Android** and **iOS** devices. Choose your preferred method below:
 
-**SpyZero** transforms your standard smartphone and laptop into an advanced hardware counter-surveillance scanner — **without requiring expensive \$500+ RF bug sweeping equipment**.
+### 🤖 Android Installation (2 Methods)
+
+<div align="center">
+
+| Method | How It Works | Download Link / Action |
+| :--- | :--- | :--- |
+| **Method 1: Direct File Share** | Send clean **`SpyZero.apk`** via WhatsApp, Telegram, or Drive | File located in repo: [`SpyZero.apk`](./SpyZero.apk) |
+| **Method 2: Mobile Chrome Browser** | 1-Tap direct download via mobile Chrome | [👉 **Download SpyZero.apk**](https://tinyurl.com/29nqw9mz) |
+
+</div>
+
+#### Step-by-Step for Chrome Download:
+1. Open **Google Chrome** on your Android phone.
+2. Tap the direct link: **[https://tinyurl.com/29nqw9mz](https://tinyurl.com/29nqw9mz)** *(or mirror: `https://github.com/Kavin-124/SpyZero/raw/main/SpyZero.apk`)*.
+3. Chrome will prompt: *"File might be harmful. Do you want to download SpyZero.apk anyway?"* ➔ Tap **Download anyway**.
+4. Once downloaded, open the notification or Files app and tap **Install** *(Enable "Allow from this source" if prompted)*.
+5. Launch **SpyZero** and grant Camera / Bluetooth / Location permissions to begin sweeping!
 
 ---
 
-## 🔬 6-Vector Detection Architecture
+### 🍏 Apple iOS Installation Guide
+
+Apple restricts raw sideloading of APK binaries, but SpyZero can be installed seamlessly on iPhones via **3 methods**:
+
+#### 🌟 Option A: Instant PWA "Add to Home Screen" *(Recommended — 100% Free & Fast)*
+1. Open SpyZero in **Safari** on your iPhone *(via your hosted web deployment or local Wi-Fi)*.
+2. Tap the **Share icon** *(Square with arrow pointing up ⬆️)* at the bottom toolbar.
+3. Scroll down and tap **"Add to Home Screen"**.
+4. Tap **Add**. A native **SpyZero** icon will appear on your Home Screen!
+5. Open it to experience a full-screen, standalone app with native camera, torch, and sensor access with zero browser toolbars.
+
+#### 💻 Option B: Native Capacitor iOS App *(Requires Mac + Xcode)*
+```bash
+# Add and launch iOS native workspace
+npx cap add ios
+npx cap sync ios
+npx cap open ios
+```
+Connect your iPhone via USB, select your free Personal Apple ID signing certificate in Xcode, and click **Run (▶️)** to install the native `.ipa`.
+
+#### 🚀 Option C: TestFlight Public Distribution
+If you maintain an Apple Developer Account ($99/year), compile an Archive build in Xcode and distribute SpyZero via a single-click **TestFlight Public Beta Link**.
+
+---
+
+## ⚡ Core Detection Capabilities
+
+SpyZero integrates 6 distinct sensor vectors into a unified forensic dashboard:
 
 ```mermaid
 flowchart TD
-    A["📱 User Smartphone / Laptop"] --> B["Unified Sensor Processing Hub"]
-    
-    B --> C["👁️ Vector 1: Optical Glint Scanner\n(Retro-Reflection Physics)"]
-    B --> D["🟣 Vector 2: IR Night Vision Scanner\n(850nm/940nm Bandpass Filter)"]
-    B --> E["📡 Vector 3: Wi-Fi & Subnet Radar\n(Vendor OUI & RTSP Stream Probing)"]
-    B --> F["🧲 Vector 4: Magnetic Flux Meter\n(µT Magnetometer Anomaly Detection)"]
-    B --> G["📷 Vector 5: Photo Forensic Inspector\n(High-Resolution Lens Reticle)"]
-    B --> H["⚡ Vector 6: 60s Guided Room Audit\n(Cryptographic Privacy Certificate)"]
+    Phone["📱 Smartphone Sensors & Radios"] --> Core["Unified Surveillance Sensor Hub"]
 
-    C & D & E & F & G & H --> I{"🚨 Anomaly Engine"}
-    I -->|Threat Detected| J["🚨 Emergency Protocol & Evidence Log"]
-    I -->|All Clean| K["✅ Safe Verified Room Status"]
+    Core --> V1["👁️ Optical Glint Scanner\n(Coaxial Retro-Reflection Physics)"]
+    Core --> V2["🟣 IR Night-Vision Unmasker\n(850nm / 940nm Chromatic Filter)"]
+    Core --> V3["📶 Wi-Fi & Subnet Radar\n(Rogue APs & RTSP Stream Interceptor)"]
+    Core --> V4["🧲 Magnetic EMF Meter\n(Hall-Effect Magnetometer + Geiger Clicks)"]
+    Core --> V5["📡 Bluetooth & AirTag Hunter\n(Apple AirTag, SmartTag, Tile Tracker)"]
+    Core --> V6["🛡️ 1-Tap Full Room Sweep\n(Verifiable Cryptographic Privacy Audit)"]
+
+    V1 & V2 & V3 & V4 & V5 & V6 --> Engine{"🚨 Threat Assessment Engine"}
+    Engine -->|Threat Found| Alert["🚨 Acoustic Alert + RTSP Intercept + Legal Shield"]
+    Engine -->|All Clear| Cert["✅ Cryptographic Room Privacy Certificate"]
 ```
 
 ---
 
-## ⚡ Core Feature Matrix
+## 🔬 Multi-Vector Detection Matrix
 
-| Vector / Tool | Hardware Used | Target Threat | Output & Detection Logic |
+| Vector / Tool | Hardware Engaged | Target Threat | Output & Forensic Detection Logic |
 | :--- | :--- | :--- | :--- |
-| **👁️ Camera Lens Glint** | Phone Camera + Flashlight | Pinhole optical lenses | Detects retro-reflection off curved glass apertures with targeting reticle |
-| **🟣 IR Night Vision** | CMOS Sensor Exposure | Invisible night-vision LEDs | Bandpass spectral filtering unmasks 850nm/940nm illuminators as violet blooms |
-| **📡 Wi-Fi & Network Radar** | OS Wi-Fi / ARP Subnet | Spy cam boards, RTSP streams | Matches MAC prefixes (Tuya, Espressif, Anyka, Novatek) & probes Port 554/8080 |
-| **🧲 Magnetic EMF Meter** | Smartphone Magnetometer | Concealed DSPs, bug transformers | Reads live $\mu T$ magnetic flux with baseline ambient calibration & acoustic meter |
-| **📷 Photo Forensic Review** | High-Res Macro Camera | Hidden drilled holes in fixtures | Manual reticle inspection of screws, smoke alarms, clocks, and AC plugs |
-| **📜 60s Guided Audit** | Multi-sensor automated sweep | Room-wide privacy scan | 4-step wizard with verifiable timestamped room privacy report |
+| **👁️ Optical Lens Glint** | High-Res Camera + Strobe Flashlight | Pinhole optical apertures (1–2 mm) | Exploits retro-reflection of curved glass lens elements with targeting reticle HUD |
+| **🟣 IR Night-Vision** | CMOS Sensor Exposure | Invisible night-vision LED arrays | Chromatic bandpass filtering reveals 850nm / 940nm emitters as vibrant violet blooms |
+| **📶 Wi-Fi & Network Radar** | Wi-Fi Radio + Subnet Prober | Spy cam boards (`CAM_A9`), IoT modules | Scans rogue AP broadcasts, matches vendor OUIs (Tuya, Espressif, Anyka), and probes Port 554 RTSP video feeds |
+| **🧲 Magnetic EMF Sweep** | 3-Axis Hall Magnetometer | Concealed transformers, DSPs, audio bugs | Reads real-time $\mu T$ magnetic flux with baseline ambient calibration and acoustic Geiger feedback |
+| **📡 Bluetooth & AirTag Hunter** | Bluetooth Low Energy (BLE) | Stalker tags, covert trackers, audio bugs | Detects proximity of Apple AirTags, Galaxy SmartTags, and Tile beacons with distance telemetry |
+| **🛡️ 1-Tap Room Sweep** | Multi-Vector Automated Sequence | Whole-room privacy audit | Rapid automated scan generating a printable/shareable **Cryptographic Privacy Certificate** |
 
 ---
 
-## 📱 Instant Mobile QR Sync
+## 📱 Mobile Interface Preview
 
-SpyZero features a zero-install **Real-Phone Sync** protocol. You can run SpyZero on your laptop and instantly transfer native sensor control to your iPhone or Android device.
+<div align="center">
 
-```
-[ Laptop / Desktop Dashboard ]
-            │
-            ▼
-    [ Connect Phone Modal ]
-            │
-            ├─► Generates local Wi-Fi QR Code (e.g., http://192.168.0.102:5173)
-            │
-            ▼
-[ Scan with Phone Camera / Google Lens ]
-            │
-            ▼
-[ SpyZero Launches on Mobile Safari/Chrome ]
-  (Instant access to native camera, torch, and magnetometer!)
-```
+<img src="./docs/assets/app-radar-preview.png" alt="SpyZero Wi-Fi & Network Radar Interface" width="360" style="border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.8); border: 2px solid #27272a;" />
 
-> [!TIP]
-> **Fullscreen App Experience:** On your phone browser, tap **"Share > Add to Home Screen"** to launch SpyZero as a clean, full-screen native mobile application without browser toolbars.
+<p align="center"><i>Live Wi-Fi & Subnet Radar detecting rogue camera broadcasts, calculating signal attenuation distance, and intercepting live RTSP video feeds.</i></p>
+
+</div>
 
 ---
 
-## 🔍 In-Depth Detection Breakdown
+## 🚨 Emergency Protocol & Evidence Chain
 
-<details>
-<summary><b>👁️ Vector 1: Optical Lens Glint Detection (Physics & Optics)</b></summary>
-<br/>
+When an active surveillance threat is verified, SpyZero provides an immediate forensic workflow:
 
-Hidden pinhole cameras utilize compound glass or plastic lens elements. When a light source (such as your phone's flashlight) is positioned close to the camera sensor axis (**coaxial illumination**), light passes through the aperture, reflects off the reflective image sensor substrate at the focal plane, and returns directly along the path of illumination (**retro-reflection**).
-
-- **How it works in SpyZero:**
-  - Employs live camera feed with an integrated high-output screen / LED torch.
-  - Highlights specular glint reflections with an optical targeting HUD.
-  - Works effectively up to 3 meters in darkened rooms.
-</details>
-
-<details>
-<summary><b>📡 Vector 2: Wi-Fi & Network Subnet Radar</b></summary>
-<br/>
-
-Covert surveillance devices must transmit captured footage. 90%+ of consumer spy cameras use off-the-shelf Chinese IoT chipsets that connect to the local Wi-Fi router.
-
-- **SpyZero's Native Engine:**
-  - Queries OS-level network interfaces via Windows/Linux native commands (`netsh`, `arp -a`).
-  - Matches MAC Organizationally Unique Identifiers (OUIs) against a signature database of known spy camera manufacturers:
-    - **Tuya Smart** (`D8:1F:12`)
-    - **Espressif Systems / ESP32-CAM** (`CC:32:E5`, `A4:CF:12`)
-    - **Anyka Surveillance Microelectronics** (`00:12:16`)
-    - **Novatek Microelectronics** (`88:12:4E`)
-  - Identifies active unauthenticated RTSP video streams (Port 554) and MJPEG feeds (Port 8080).
-</details>
-
-<details>
-<summary><b>🧲 Vector 3: Magnetic EMF Flux Sensor (Magnetometer)</b></summary>
-<br/>
-
-Active electronics, switching regulators, micro-transformers, and covert microphone preamps generate localized electromagnetic fields ($\mu T$). Normal wooden headboards, stuffed toys, or plastic tissue boxes have an ambient reading of **25–45 $\mu T$**. If a concealed bug or camera circuit is inside, the reading surges to **80–200+ $\mu T$**.
-
-- **How SpyZero uses it:**
-  - Interacts directly with the device's 3-axis Hall-effect magnetometer (`Sensor API`).
-  - Features an **Ambient Zero-Calibration** button to tare the local earth magnetic field.
-  - Produces real-time acoustic clicks (Geiger counter emulation) with haptic vibrations that accelerate upon proximity.
-</details>
-
-<details>
-<summary><b>🟣 Vector 4: Infrared (IR) Night-Vision Unmasking</b></summary>
-<br/>
-
-Most covert cameras are equipped with 850nm or 940nm infrared LEDs for night illumination. While invisible to the naked human eye, smartphone CMOS camera sensors without strong IR cut filters can perceive this wavelength.
-
-- **SpyZero's Night IR Mode:**
-  - Amplifies red and blue chromatic values where IR emission typically blooms.
-  - Renders invisible IR LED emitters as bright magenta/violet illumination points in pitch darkness.
-</details>
-
----
-
-## 🚨 Emergency Protocol & Legal Shield
-
-When SpyZero detects a covert surveillance node, it immediately provides a non-destructive forensic incident workflow:
-
-1. **Digital Forensic Evidence Generation:**
-   - Automatically compiles device MAC address, IP, open streaming ports, signal strength, and cryptographic incident hash into a timestamped evidence log.
-2. **Chain of Custody Guidance:**
-   - Immediate on-screen warning: *"Do not wipe, clean, or move the device (preserves physical fingerprints for law enforcement)."*
-3. **Direct One-Touch Emergency Helplines:**
-   - 🚔 **112** (National Emergency Services)
+1. **Cryptographic Incident Logging:**
+   - Compiles hardware MAC address, IP, open streaming ports, RSSI signal attenuation, and SHA-256 incident hash into an exportable forensic report.
+2. **Chain of Custody Preservation:**
+   - Displays clear procedural instructions: *"Do not touch, wipe, or power down the device (preserves latent fingerprints for forensic law enforcement)."*
+3. **One-Touch Emergency Helplines:**
+   - 🚔 **112** (National Emergency Response System)
    - 🛡️ **1091** (Women's Safety Hotline)
    - 💻 **1930** (National Cyber Crime Reporting Portal)
 
 ---
 
-## 🚀 Quickstart Guide
+## 🔒 Security & Privacy Architecture
+
+- **100% On-Device Sensor Analysis:** Camera frames analyzed for glint and IR reflections are processed strictly in device memory via HTML5 Canvas. **No video, audio, or photographic data is ever transmitted to external servers.**
+- **Zero Cloud Dependency:** Core optical, magnetic, and Bluetooth scanning features function completely offline without an active internet connection.
+- **No Sign-Up or Tracking:** Zero user accounts, zero analytics trackers, and zero personal data retention.
+
+---
+
+## 🛠️ Developer Quickstart
 
 ### Prerequisites
-- **Node.js** (v18 or higher)
-- **Python** (v3.9 or higher, standard library only)
-- Both laptop and mobile phone connected to the **same Wi-Fi network**.
+- **Node.js** (v18+)
+- **Android Studio** (for building Android APK natively)
 
-### 1. Clone & Install Frontend
+### 1. Clone & Install
 ```bash
-# Clone the repository
 git clone https://github.com/Kavin-124/SpyZero.git
 cd SpyZero
 
 # Install dependencies
 npm install
-
-# Start Vite dev server on local network
-npm run dev
 ```
 
-### 2. Start Hardware Scanner Bridge (Optional for Native OS Scans)
-In a separate terminal window:
+### 2. Run Local Development Server
 ```bash
-python backend/real_scanner.py
+# Starts Vite with network exposure for mobile testing
+npm run dev -- --host
 ```
-> The native scanner runs on `http://localhost:8000` using standard Python libraries — **zero `pip install` required!**
 
-### 3. Open SpyZero
-- Open [http://localhost:5173](http://localhost:5173) in your browser.
-- Switch between **Mobile App View** and **Desktop Dashboard** via the top bar.
-- Click **"Connect Phone"** to scan the QR code with your mobile camera and start room sweeping!
+### 3. Build Web Bundle & Sync to Android
+```bash
+npm run build
+npx cap sync android
+```
 
----
+### 4. Compile Standalone Android APK
+```bash
+# Open in Android Studio
+npx cap open android
 
-## 🔒 Security & Privacy Architecture
-
-- **100% Client-Side Video Processing:** Camera frames captured for glint and IR analysis are processed strictly in-memory on the device canvas. **No image or video is ever uploaded to external servers.**
-- **No Account Required:** Immediate protection with zero sign-up, tracking cookies, or personal data collection.
-- **Open-Source Auditable Code:** Full transparency for travelers, security professionals, and white-hat researchers.
-
----
-
-## 🗺️ Roadmap
-
-- [x] Modern Matte Zinc UI (Mobile Phone Chassis + Desktop Widescreen).
-- [x] Optical Lens Glint Reflection Scanner with HUD reticle.
-- [x] Infrared (IR) 850nm spectral night-vision enhancement.
-- [x] Native OS Wi-Fi scanner and IoT OUI chipset identification.
-- [x] Digital Magnetic Flux ($\mu T$) Geiger meter with acoustic clicks.
-- [x] Instant local Wi-Fi QR code sync for real smartphones.
-- [x] 60-Second Guided Room Audit wizard with verifiable reports.
-- [x] One-touch Emergency Forensic Shield and legal helplines.
-- [x] Bluetooth Low Energy (BLE) tracker detector (AirTags, Tile, SmartTags).
-- [x] Live RTSP / ONVIF video stream intercept player inside network radar.
-- [x] Progressive Web App (PWA) offline service worker caching.
-- [x] Ultrasonic & Coil Whine acoustic bug sweeper (15kHz–22kHz spectrum analyzer).
-- [ ] Crowdsourced community hotel privacy rating database.
-- [ ] Export forensic audit report in encrypted PDF format.
+# Or build directly via Gradle wrapper
+cd android
+./gradlew assembleDebug
+```
+The compiled APK will be output to:
+`android/app/build/outputs/apk/debug/app-debug.apk`
 
 ---
 
-## 📜 License & Disclaimer
+## 📜 License & Legal Disclaimer
 
-Distributed under the **MIT License**. See `LICENSE` for more information.
+Distributed under the **MIT License**. See [`LICENSE`](./LICENSE) for details.
 
-> **Disclaimer:** SpyZero is designed as a personal defense utility for counter-surveillance and traveler safety. Users must comply with local privacy regulations and laws regarding network probing and device scanning.
+> **Disclaimer:** SpyZero is developed strictly as a personal counter-surveillance and traveler defense utility. Users are responsible for complying with local regulations regarding RF/network probing and privacy laws in their respective jurisdictions.
 
 <br/>
 
 <div align="center">
-  <sub>Built with ❤️ for privacy, traveler security, and digital safety.</sub>
+  <sub>Built with ❤️ for privacy, digital safety, and traveler security.</sub>
 </div>
