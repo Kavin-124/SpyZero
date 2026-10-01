@@ -13,17 +13,13 @@ interface MobileHeaderProps {
   onOpenEmergencyModal: () => void;
   onToggleTorch?: () => void;
   torchActive?: boolean;
-  demoMode?: boolean;
-  onToggleDemoMode?: () => void;
 }
 
 export const MobileHeader: React.FC<MobileHeaderProps> = ({
   threatCount,
   onOpenEmergencyModal,
   onToggleTorch,
-  torchActive = false,
-  demoMode = false,
-  onToggleDemoMode
+  torchActive = false
 }) => {
   const [muted, setMuted] = useState(false);
 
@@ -65,24 +61,6 @@ export const MobileHeader: React.FC<MobileHeaderProps> = ({
 
       {/* Right: Quick Mobile Actions */}
       <div className="flex items-center space-x-1.5">
-        {/* Demo Mode Toggle */}
-        {onToggleDemoMode && (
-          <button
-            onClick={() => {
-              triggerHaptic('light');
-              onToggleDemoMode();
-            }}
-            className={`px-1.5 py-1 rounded-lg border text-[10px] font-mono font-semibold transition cursor-pointer ${
-              demoMode
-                ? 'bg-amber-500/20 text-amber-300 border-amber-500/60 shadow-sm shadow-amber-500/20'
-                : 'bg-zinc-850 text-zinc-500 border-zinc-800 hover:text-zinc-300'
-            }`}
-            title="Toggle Demo Lab / Threat Simulator"
-          >
-            DEMO
-          </button>
-        )}
-
         {/* Flashlight toggle */}
         {onToggleTorch && (
           <button

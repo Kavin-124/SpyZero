@@ -27,7 +27,6 @@ const AppContent: React.FC = () => {
   const [isAuditWizardOpen, setIsAuditWizardOpen] = useState<boolean>(false);
   const [isEmergencyModalOpen, setIsEmergencyModalOpen] = useState<boolean>(false);
   const [isRoomSweepOpen, setIsRoomSweepOpen] = useState<boolean>(false);
-  const [demoMode, setDemoMode] = useState<boolean>(false);
   const [torchActive, setTorchActive] = useState<boolean>(false);
   const [backToastVisible, setBackToastVisible] = useState<boolean>(false);
   const lastBackPressRef = useRef<number>(0);
@@ -86,23 +85,6 @@ const AppContent: React.FC = () => {
     setTorchActive((prev) => !prev);
   };
 
-  const handleToggleDemoMode = () => {
-    setDemoMode((prev) => !prev);
-  };
-
-  const handleInjectThreat = (threatName: string) => {
-    setThreatCount((prev) => prev + 1);
-    setLastDetectedThreat(threatName);
-    soundFx.playAlarmSiren();
-    triggerHaptic('warning');
-  };
-
-  const handleClearThreats = () => {
-    setThreatCount(0);
-    setLastDetectedThreat('');
-    triggerHaptic('click');
-  };
-
   const isWide = viewMode === 'wide';
 
   return (
@@ -123,8 +105,6 @@ const AppContent: React.FC = () => {
             onOpenEmergencyModal={() => setIsEmergencyModalOpen(true)}
             onToggleTorch={handleToggleTorch}
             torchActive={torchActive}
-            demoMode={demoMode}
-            onToggleDemoMode={handleToggleDemoMode}
           />
         </div>
       )}
@@ -159,10 +139,6 @@ const AppContent: React.FC = () => {
             onOpenAuditWizard={() => setIsAuditWizardOpen(true)}
             onOpenRoomSweep={() => setIsRoomSweepOpen(true)}
             threatCount={threatCount}
-            demoMode={demoMode}
-            onToggleDemoMode={handleToggleDemoMode}
-            onInjectThreat={handleInjectThreat}
-            onClearThreats={handleClearThreats}
           />
         )}
 
@@ -218,8 +194,6 @@ const AppContent: React.FC = () => {
       <FullRoomSweepModal
         isOpen={isRoomSweepOpen}
         onClose={() => setIsRoomSweepOpen(false)}
-        onThreatDetected={handleThreatFound}
-        demoMode={demoMode}
       />
 
       <GuidedAuditModal

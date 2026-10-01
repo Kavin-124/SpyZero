@@ -21,8 +21,6 @@ import { triggerHaptic } from '../utils/haptics';
 interface FullRoomSweepModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onThreatDetected?: (threat: string) => void;
-  demoMode?: boolean;
 }
 
 interface SweepStage {
@@ -66,9 +64,7 @@ const STAGES: SweepStage[] = [
 
 export const FullRoomSweepModal: React.FC<FullRoomSweepModalProps> = ({
   isOpen,
-  onClose,
-  onThreatDetected,
-  demoMode = false
+  onClose
 }) => {
   const [status, setStatus] = useState<'idle' | 'scanning' | 'completed'>('idle');
   const [currentStage, setCurrentStage] = useState<number>(0);
@@ -142,25 +138,14 @@ export const FullRoomSweepModal: React.FC<FullRoomSweepModalProps> = ({
         triggerHaptic('heavy');
         soundFx.playSuccessChime();
 
-        if (demoMode) {
-          const simThreat = 'Tuya Mini RTSP Camera (IP: 192.168.1.108)';
-          setThreatsFound([simThreat]);
-          onThreatDetected?.(simThreat);
-          setLogs(prev => [
-            ...prev,
-            `[${new Date().toLocaleTimeString()}] [ALERT] 1 Covert surveillance device detected during sweep: ${simThreat}`,
-            `[${new Date().toLocaleTimeString()}] Sweep completed. Audit report generated.`
-          ]);
-        } else {
-          setLogs(prev => [
-            ...prev,
-            `[${new Date().toLocaleTimeString()}] Stage 4: Optical/Magnetic baselines confirmed nominal.`,
-            `[${new Date().toLocaleTimeString()}] Full room counter-surveillance sweep completed. 0 threats detected.`,
-            `[${new Date().toLocaleTimeString()}] Privacy Audit Certificate issued successfully.`
-          ]);
-        }
+        setLogs(prev => [
+          ...prev,
+          `[${new Date().toLocaleTimeString()}] Stage 4: Optical/Magnetic baselines confirmed nominal.`,
+          `[${new Date().toLocaleTimeString()}] Full room counter-surveillance sweep completed. 0 threats detected.`,
+          `[${new Date().toLocaleTimeString()}] Privacy Audit Certificate issued successfully.`
+        ]);
       }
-    }, 200); // 10 seconds total fast demonstration sweep
+    }, 200); // 10 seconds total fast sweep
   };
 
   const handleShareCertificate = () => {
@@ -196,13 +181,8 @@ Authenticated by SpyZero Hardware Privacy Sentinel.`;
               <ShieldCheck className="w-4 h-4" />
             </div>
             <div>
-              <h2 className="text-sm font-semibold text-white tracking-tight flex items-center gap-1.5">
+              <h2 className="text-sm font-semibold text-white tracking-tight">
                 Full Room Privacy Sweep
-                {demoMode && (
-                  <span className="text-[9px] bg-amber-500/20 text-amber-400 border border-amber-500/40 px-1.5 py-0.2 rounded font-mono">
-                    DEMO MODE
-                  </span>
-                )}
               </h2>
               <p className="text-[11px] text-zinc-400">Automated Multi-Vector Counter-Surveillance</p>
             </div>
