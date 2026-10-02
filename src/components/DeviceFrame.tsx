@@ -1,6 +1,7 @@
 import React, { useState, useEffect, createContext } from 'react';
 import QRCode from 'qrcode';
 import { Smartphone, Monitor, QrCode, X, Copy, Check, ScanLine } from 'lucide-react';
+import { Capacitor } from '@capacitor/core';
 import { triggerHaptic } from '../utils/haptics';
 
 interface ViewModeContextType {
@@ -68,9 +69,20 @@ export const DeviceFrame: React.FC<DeviceFrameProps> = ({ children }) => {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  // If running inside Capacitor native mobile app (Android / iOS), bypass all desktop frames & render 100% full screen
+  if (Capacitor.isNativePlatform()) {
+    return (
+      <ViewModeContext.Provider value={{ viewMode: 'mobile', setViewMode: () => {} }}>
+        <div className="h-full h-[100dvh] w-full bg-[#0c0d10] text-zinc-100 flex flex-col overflow-hidden">
+          {children}
+        </div>
+      </ViewModeContext.Provider>
+    );
+  }
+
   return (
     <ViewModeContext.Provider value={{ viewMode, setViewMode }}>
-      <div className="min-h-screen bg-[#09090b] text-zinc-100 flex flex-col items-center justify-start antialiased selection:bg-blue-600 selection:text-white">
+      <div className="h-screen sm:min-h-screen bg-[#09090b] text-zinc-100 flex flex-col items-center justify-start antialiased selection:bg-blue-600 selection:text-white overflow-hidden sm:overflow-auto">
         
         {/* Top Developer & Mode Preview Bar */}
         <div className="hidden sm:flex items-center justify-between w-full max-w-6xl px-4 py-2.5 my-1 z-30">
@@ -128,10 +140,10 @@ export const DeviceFrame: React.FC<DeviceFrameProps> = ({ children }) => {
         </div>
 
         {/* Main Content Area */}
-        <div className="w-full flex-1 flex justify-center items-start sm:px-4">
+        <div className="w-full flex-1 flex justify-center items-stretch sm:items-start sm:px-4 h-full min-h-0">
           {viewMode === 'mobile' ? (
-            /* Realistic Smartphone Chassis Frame */
-            <div className="w-full sm:max-w-[410px] sm:my-3 sm:rounded-[50px] sm:border-[8px] sm:border-[#1e2024] sm:shadow-[0_20px_60px_rgba(0,0,0,0.9),0_0_0_1px_rgba(255,255,255,0.06)] bg-[#0c0d10] overflow-hidden flex flex-col relative transition-all h-[100dvh] sm:h-[844px] max-h-[94vh]">
+            /* Realistic Smartphone Chassis Frame on Desktop; Full screen edge-to-edge on mobile */
+            <div className="w-full sm:max-w-[410px] sm:my-3 sm:rounded-[50px] sm:border-[8px] sm:border-[#1e2024] sm:shadow-[0_20px_60px_rgba(0,0,0,0.9),0_0_0_1px_rgba(255,255,255,0.06)] bg-[#0c0d10] overflow-hidden flex flex-col relative transition-all h-[100dvh] sm:h-[844px] sm:max-h-[94vh]">
               {/* Mobile App Viewport */}
               <div className="flex-1 flex flex-col min-h-0 relative overflow-hidden bg-[#0c0d10]">
                 {children}
@@ -139,7 +151,7 @@ export const DeviceFrame: React.FC<DeviceFrameProps> = ({ children }) => {
             </div>
           ) : (
             /* True Widescreen Laptop / PC Mode */
-            <div className="w-full max-w-6xl min-h-screen flex flex-col pb-12">
+            <div className="w-full max-w-6xl min-h-screen flex flex-col pb-12 overflow-y-auto">
               {children}
             </div>
           )}

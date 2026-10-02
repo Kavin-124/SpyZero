@@ -38,10 +38,10 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
 
   return (
     <nav 
-      className="shrink-0 w-full z-40 bg-[#0e0f12]/95 backdrop-blur-lg border-t border-zinc-800/80 pb-safe"
-      style={{ paddingBottom: 'max(0.375rem, env(safe-area-inset-bottom))' }}
+      className="shrink-0 w-full z-40 bg-[#0e0f12]/95 backdrop-blur-lg border-t border-zinc-800/80"
+      style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}
     >
-      <div className="w-full px-2 py-1.5 flex items-center justify-around">
+      <div className="w-full px-2 py-2 flex items-center justify-around">
         {tabs.map((tab) => {
           const Icon = tab.icon;
           const isActive = activeTab === tab.id;
@@ -50,7 +50,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
             <button
               key={tab.id}
               onClick={() => handleTabClick(tab.id)}
-              className={`flex-1 py-1.5 px-1 flex flex-col items-center justify-center relative rounded-xl transition duration-150 active:scale-95 ${
+              className={`flex-1 py-1 px-1 flex flex-col items-center justify-center relative rounded-xl transition duration-150 active:scale-95 ${
                 isActive ? 'text-white' : 'text-zinc-400 hover:text-zinc-200'
               }`}
             >
@@ -73,11 +73,6 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
             </button>
           );
         })}
-      </div>
-
-      {/* Mobile Swipe Home Indicator */}
-      <div className="w-full flex justify-center pb-1 pt-0.5">
-        <div className="w-28 h-1 bg-zinc-700/50 rounded-full" />
       </div>
     </nav>
   );
