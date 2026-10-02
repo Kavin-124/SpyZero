@@ -1,7 +1,6 @@
 import React, { useState, useEffect, createContext } from 'react';
 import QRCode from 'qrcode';
 import { Smartphone, Monitor, QrCode, X, Copy, Check, ScanLine } from 'lucide-react';
-import { MobileStatusBar } from './MobileStatusBar';
 import { triggerHaptic } from '../utils/haptics';
 
 interface ViewModeContextType {
@@ -133,11 +132,6 @@ export const DeviceFrame: React.FC<DeviceFrameProps> = ({ children }) => {
           {viewMode === 'mobile' ? (
             /* Realistic Smartphone Chassis Frame */
             <div className="w-full sm:max-w-[410px] sm:my-3 sm:rounded-[50px] sm:border-[8px] sm:border-[#1e2024] sm:shadow-[0_20px_60px_rgba(0,0,0,0.9),0_0_0_1px_rgba(255,255,255,0.06)] bg-[#0c0d10] overflow-hidden flex flex-col relative transition-all h-[100dvh] sm:h-[844px] max-h-[94vh]">
-              {/* Native Mobile Status Bar */}
-              <div className="shrink-0">
-                <MobileStatusBar />
-              </div>
-
               {/* Mobile App Viewport */}
               <div className="flex-1 flex flex-col min-h-0 relative overflow-hidden bg-[#0c0d10]">
                 {children}

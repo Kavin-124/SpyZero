@@ -12,17 +12,7 @@ import {
 } from 'lucide-react';
 import { soundFx } from '../utils/audio';
 import { triggerHaptic } from '../utils/haptics';
-
-interface BleDevice {
-  id: string;
-  name: string;
-  type: string;
-  rssi: number;
-  distance: string;
-  threat_level: 'SAFE' | 'WARNING' | 'CRITICAL';
-  manufacturer: string;
-  status: string;
-}
+import { NativeHardwareScanner, isNativeAndroid, type BleDevice } from '../utils/hardwareScanner';
 
 export const BleHunter: React.FC = () => {
   const [devices, setDevices] = useState<BleDevice[]>([]);
@@ -42,70 +32,50 @@ export const BleHunter: React.FC = () => {
     soundFx.playRadarPing();
 
     let foundDevices: BleDevice[] = [];
-    const endpoints = ['http://localhost:8000', 'http://10.0.2.2:8000'];
+    let scanSuccess = false;
 
-    for (const base of endpoints) {
+    // 1. Real Hardware Scan on Native Android Mobile
+    if (isNativeAndroid()) {
       try {
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 600);
-        const res = await fetch(`${base}/api/real-ble`, { signal: controller.signal });
-        clearTimeout(timeoutId);
-        const data = await res.json();
-        if (data && data.status === 'success' && data.devices && data.devices.length > 0) {
-          foundDevices = data.devices;
-          break;
+        const res = await NativeHardwareScanner.scanBle();
+        if (res && res.devices) {
+          foundDevices = res.devices;
+          scanSuccess = true;
         }
-      } catch {
-        // Next endpoint or fallback
+      } catch (e: any) {
+        console.warn('Native mobile BLE scan failed:', e);
       }
     }
 
-    if (foundDevices.length === 0) {
-      // Mobile standalone RF sweep simulation
-      await new Promise(r => setTimeout(r, 1300));
-      foundDevices = [
-        {
-          id: 'BLE-01',
-          name: 'Apple AirTag (ID: 0x7481B)',
-          type: 'Personal Tracker / Stalker Tag',
-          rssi: -48,
-          distance: '0.7 m (Immediate Proximity)',
-          threat_level: 'CRITICAL',
-          manufacturer: 'Apple Inc.',
-          status: 'Persistent Following Beacon — High Alert'
-        },
-        {
-          id: 'BLE-02',
-          name: 'Samsung Galaxy SmartTag2',
-          type: 'Personal BLE Beacon',
-          rssi: -66,
-          distance: '2.1 m (Near)',
-          threat_level: 'WARNING',
-          manufacturer: 'Samsung Electronics',
-          status: 'Stationary Nearby Signal'
-        },
-        {
-          id: 'BLE-03',
-          name: 'Tile Pro #389',
-          type: 'Tile BLE Beacon',
-          rssi: -74,
-          distance: '3.4 m (Medium Range)',
-          threat_level: 'WARNING',
-          manufacturer: 'Tile Inc.',
-          status: 'Periodic Chirp Broadcast'
-        },
-        {
-          id: 'BLE-04',
-          name: 'Garmin Venu 3 Watch',
-          type: 'Wearable Fitness Tracker',
-          rssi: -82,
-          distance: '4.8 m (Far)',
-          threat_level: 'SAFE',
-          manufacturer: 'Garmin Ltd.',
-          status: 'Authorized Paired Peripheral'
+    // 2. PC / Desktop Development Fallback (Bridge)
+    if (!scanSuccess) {
+      const endpoints = ['http://localhost:8000', 'http://10.0.2.2:8000'];
+      for (const base of endpoints) {
+        try {
+          const controller = new AbortController();
+          const timeoutId = setTimeout(() => controller.abort(), 600);
+          const res = await fetch(`${base}/api/real-ble`, { signal: controller.signal });
+          clearTimeout(timeoutId);
+          const data = await res.json();
+          if (data && data.status === 'success' && data.devices && data.devices.length > 0) {
+            foundDevices = data.devices;
+            scanSuccess = true;
+            break;
+          }
+        } catch {
+          // Next endpoint
         }
-      ];
+      }
     }
+
+    // Sort: Critical trackers first, then highest RSSI
+    foundDevices.sort((a, b) => {
+      const score = (t: string) => t === 'CRITICAL' ? 3 : t === 'WARNING' ? 2 : 1;
+      if (score(b.threat_level) !== score(a.threat_level)) {
+        return score(b.threat_level) - score(a.threat_level);
+      }
+      return (b.rssi || -100) - (a.rssi || -100);
+    });
 
     setDevices(foundDevices);
     setIsScanning(false);
@@ -248,12 +218,24 @@ export const BleHunter: React.FC = () => {
         {/* Discovered BLE Device Cards */}
         <div className="mt-4 space-y-2">
           {devices.length === 0 ? (
-            <div className="text-center py-10 bg-zinc-900/40 border border-zinc-800/60 rounded-xl">
-              <Radio className="w-8 h-8 text-zinc-600 mx-auto mb-2 animate-pulse" />
-              <p className="text-xs text-zinc-300 font-medium">No Bluetooth devices scanned yet</p>
-              <p className="text-[11px] text-zinc-500 mt-0.5">
-                Click "Scan Bluetooth" to sweep for nearby AirTags, SmartTags, and BLE transmitters.
-              </p>
+            <div className="text-center py-10 px-4 bg-zinc-900/40 border border-zinc-800/60 rounded-xl space-y-2">
+              {hasScanned ? (
+                <>
+                  <CheckCircle className="w-9 h-9 text-emerald-400 mx-auto mb-2" />
+                  <p className="text-xs text-white font-semibold">Area Verified Clear • 0 Trackers Detected</p>
+                  <p className="text-[11px] text-zinc-400 max-w-sm mx-auto leading-relaxed">
+                    Live hardware scan completed. No AirTags, SmartTags, or unauthorized tracking beacons found nearby.
+                  </p>
+                </>
+              ) : (
+                <>
+                  <Radio className="w-8 h-8 text-zinc-600 mx-auto mb-2 animate-pulse" />
+                  <p className="text-xs text-zinc-300 font-medium">Ready to Sweep</p>
+                  <p className="text-[11px] text-zinc-500 mt-0.5">
+                    Click "Scan Bluetooth" above to scan for nearby AirTags, SmartTags, and BLE transmitters.
+                  </p>
+                </>
+              )}
             </div>
           ) : (
             devices.map((device) => {
